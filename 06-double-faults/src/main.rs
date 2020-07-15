@@ -13,6 +13,7 @@ pub extern "C" fn _start() -> ! {
 
     blog_os::init();
 
+    #[allow(unconditional_recursion)]
     fn stack_overflow() {
         stack_overflow(); // for each recursion, the return address is pushed
     }
