@@ -1,3 +1,4 @@
+#![no_main]
 #![no_std]
 
 use core::panic::PanicInfo;
@@ -8,4 +9,7 @@ fn panic(_info: &PanicInfo) -> ! {
     loop {}
 }
 
-fn main() {}
+#[no_mangle]
+pub extern "C" fn _start() -> ! {
+    loop {}
+}
