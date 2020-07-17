@@ -177,7 +177,6 @@ fn test_println_many() {
     }
 }
 
-
 #[test_case]
 fn test_println_output() {
     use core::fmt::Write;
