@@ -1,6 +1,15 @@
 use x86_64::structures::paging::{FrameAllocator, Mapper, OffsetPageTable, PageTable, Size4KiB};
 use x86_64::VirtAddr;
 
+/// A FrameAllocator that always returns `None`.
+pub struct EmptyFrameAllocator;
+
+unsafe impl FrameAllocator<Size4KiB> for EmptyFrameAllocator {
+    fn allocate_frame(&mut self) -> Option<PhysFrame> {
+        None
+    }
+}
+
 /// Creates an example mapping for the given page to frame `0xb8000`.
 pub fn create_example_mapping(
     page: Page,
