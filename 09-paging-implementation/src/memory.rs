@@ -1,5 +1,7 @@
-use x86_64::structures::paging::{FrameAllocator, Mapper, OffsetPageTable, PageTable, Size4KiB};
-use x86_64::VirtAddr;
+use x86_64::structures::paging::{
+    FrameAllocator, Mapper, OffsetPageTable, Page, PageTable, PhysFrame, Size4KiB,
+};
+use x86_64::{PhysAddr, VirtAddr};
 
 /// A FrameAllocator that always returns `None`.
 pub struct EmptyFrameAllocator;
