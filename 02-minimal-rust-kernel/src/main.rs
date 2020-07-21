@@ -1,6 +1,8 @@
 #![no_main]
 #![no_std]
 
+extern crate rlibc;
+
 use core::panic::PanicInfo;
 
 /// This function is called on panic.
