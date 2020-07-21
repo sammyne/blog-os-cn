@@ -10,6 +10,7 @@ edition = "2018"
 bootloader  = "0.9.8"
 rlibc       = "1.0.0"
 spin        = "0.5.2"
+x86_64      = "0.11.0"
 volatile    = "0.2.6"
 
 [dependencies.lazy_static]
@@ -18,6 +19,7 @@ features  = ["spin_no_std"]
 
 [package.metadata.bootimage]
 test-args = ["-device", "isa-debug-exit,iobase=0xf4,iosize=0x04"]
+test-success-exit-code = 33         # (0x10 << 1) | 1
 
 # below needs commenting out to address issue [rust-lang/cargo#7359](https://github.com/rust-lang/cargo/issues/7359)
 # and also https://github.com/phil-opp/blog_os/issues/840#issuecomment-661661646
