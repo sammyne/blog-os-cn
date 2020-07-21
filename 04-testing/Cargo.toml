@@ -16,6 +16,9 @@ volatile    = "0.2.6"
 version   = "1.0"
 features  = ["spin_no_std"]
 
+[package.metadata.bootimage]
+test-args = ["-device", "isa-debug-exit,iobase=0xf4,iosize=0x04"]
+
 # below needs commenting out to address issue [rust-lang/cargo#7359](https://github.com/rust-lang/cargo/issues/7359)
 # and also https://github.com/phil-opp/blog_os/issues/840#issuecomment-661661646
 #[profile.dev]
