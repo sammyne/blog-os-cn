@@ -3,7 +3,7 @@ use x86_64::structures::paging::{
 };
 use x86_64::{PhysAddr, VirtAddr};
 
-use bootloader::bootinfo::{MemoryMap,MemoryRegionType};
+use bootloader::bootinfo::{MemoryMap, MemoryRegionType};
 
 /// A FrameAllocator that returns usable frames from the bootloader's memory map.
 pub struct BootInfoFrameAllocator {
