@@ -1,6 +1,9 @@
 use alloc::alloc::{GlobalAlloc, Layout};
 use core::ptr::null_mut;
 
+#[global_allocator]
+static ALLOCATOR: Dummy = Dummy;
+
 pub struct Dummy;
 
 unsafe impl GlobalAlloc for Dummy {
