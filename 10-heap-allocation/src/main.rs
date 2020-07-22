@@ -11,7 +11,7 @@ use core::panic::PanicInfo;
 
 use bootloader::{entry_point, BootInfo};
 
-use blog_os::println;
+use blog_os::{println,allocator};
 
 entry_point!(kernel_main);
 
@@ -34,6 +34,8 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
     // write the string `New!` to the screen through the new mapping
     let page_ptr: *mut u64 = page.start_address().as_mut_ptr();
     unsafe { page_ptr.offset(400).write_volatile(0x_f021_f077_f065_f04e) };
+
+    allocator::init_heap(&mut mapper, &mut frame_allocator).expect("heap initialization failed");
 
     let _x = Box::new(41);
 
