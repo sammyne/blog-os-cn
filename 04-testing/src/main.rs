@@ -1,7 +1,7 @@
 #![no_main]
 #![no_std]
 #![feature(custom_test_frameworks)]
-#![test_runner(crate::test_runner)]
+#![test_runner(blog_os::test_runner)]
 #![reexport_test_harness_main = "test_main"]
 
 use blog_os::println;
