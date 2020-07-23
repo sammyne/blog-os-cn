@@ -44,6 +44,10 @@ pub fn exit_qemu(exit_code: QemuExitCode) {
     }
 }
 
+pub fn init() {
+    interrupts::init_idt();
+}
+
 pub fn test_runner(tests: &[&dyn Testable]) {
     serial_println!("Running {} tests", tests.len());
     for test in tests {
