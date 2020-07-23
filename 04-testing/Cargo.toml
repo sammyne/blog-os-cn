@@ -33,3 +33,8 @@ test-timeout = 300          # (in seconds)
 #
 #[profile.release]
 #panic = "abort"
+
+
+[[test]]
+name = "should_panic"
+harness = false
