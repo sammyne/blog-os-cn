@@ -78,6 +78,19 @@ impl LinkedListAllocator {
         None
     }
 
+    /// Adjust the given layout so that the resulting allocated memory
+    /// region is also capable of storing a `ListNode`.
+    ///
+    /// Returns the adjusted size and alignment as a (size, align) tuple.
+    fn size_align(layout: Layout) -> (usize, usize) {
+        let layout = layout
+            .align_to(mem::align_of::<ListNode>())
+            .expect("adjusting alignment failed")
+            .pad_to_align();
+        let size = layout.size().max(mem::size_of::<ListNode>());
+        (size, layout.align())
+    }
+
     /// Adds the given memory region to the front of the list.
     unsafe fn add_free_region(&mut self, addr: usize, size: usize) {
         // ensure that the freed region is capable of holding ListNode
