@@ -1,3 +1,4 @@
+use alloc::task::Wake;
 use alloc::{collections::BTreeMap, sync::Arc};
 use core::task::Waker;
 use crossbeam_queue::ArrayQueue;
@@ -64,5 +65,15 @@ impl Executor {
 impl TaskWaker {
     fn wake_task(&self) {
         self.task_queue.push(self.task_id).expect("task_queue full");
+    }
+}
+
+impl Wake for TaskWaker {
+    fn wake(self: Arc<Self>) {
+        self.wake_task();
+    }
+
+    fn wake_by_ref(self: &Arc<Self>) {
+        self.wake_task();
     }
 }
