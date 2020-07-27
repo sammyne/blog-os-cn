@@ -1,5 +1,5 @@
 use alloc::alloc::{GlobalAlloc, Layout};
-use core::ptr;
+use core::{mem, ptr};
 
 use super::Locked;
 
@@ -34,7 +34,7 @@ impl LinkedListAllocator {
     ///
     /// Returns the allocation start address on success.
     fn alloc_from_region(region: &ListNode, size: usize, align: usize) -> Result<usize, ()> {
-        let alloc_start = align_up(region.start_addr(), align);
+        let alloc_start = super::align_up(region.start_addr(), align);
         let alloc_end = alloc_start.checked_add(size).ok_or(())?;
 
         if alloc_end > region.end_addr() {
@@ -94,7 +94,7 @@ impl LinkedListAllocator {
     /// Adds the given memory region to the front of the list.
     unsafe fn add_free_region(&mut self, addr: usize, size: usize) {
         // ensure that the freed region is capable of holding ListNode
-        assert_eq!(align_up(addr, mem::align_of::<ListNode>()), addr);
+        assert_eq!(super::align_up(addr, mem::align_of::<ListNode>()), addr);
         assert!(size >= mem::size_of::<ListNode>());
 
         // create a new list node and append it at the start of the list

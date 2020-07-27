@@ -2,6 +2,7 @@
 #![cfg_attr(test, no_main)]
 #![feature(alloc_error_handler)]
 #![feature(custom_test_frameworks)]
+#![feature(const_fn)]
 #![test_runner(crate::test_runner)]
 #![reexport_test_harness_main = "test_main"]
 #![feature(abi_x86_interrupt)]
