@@ -1,6 +1,7 @@
 use alloc::task::Wake;
 use alloc::{collections::BTreeMap, sync::Arc};
 use core::task::Waker;
+use core::task::{Context, Poll};
 use crossbeam_queue::ArrayQueue;
 
 use super::{Task, TaskId};
@@ -22,6 +23,12 @@ impl Executor {
             tasks: BTreeMap::new(),
             task_queue: Arc::new(ArrayQueue::new(100)),
             waker_cache: BTreeMap::new(),
+        }
+    }
+
+    pub fn run(&mut self) -> ! {
+        loop {
+            self.run_ready_tasks();
         }
     }
 
