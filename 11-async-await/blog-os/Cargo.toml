@@ -20,6 +20,10 @@ volatile                = "0.2.6"
 features    = ["map_physical_memory"]
 version     = "0.9.8"
 
+[dependencies.conquer-once]
+version             = "0.2.0"
+default-features    = false
+
 [dependencies.crossbeam-queue]
 version             = "0.2.1"
 default-features    = false
