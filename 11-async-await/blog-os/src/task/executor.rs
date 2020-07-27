@@ -63,6 +63,13 @@ impl Executor {
 }
 
 impl TaskWaker {
+    fn new(task_id: TaskId, task_queue: Arc<ArrayQueue<TaskId>>) -> Waker {
+        Waker::from(Arc::new(TaskWaker {
+            task_id,
+            task_queue,
+        }))
+    }
+
     fn wake_task(&self) {
         self.task_queue.push(self.task_id).expect("task_queue full");
     }
