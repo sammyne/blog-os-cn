@@ -1,5 +1,9 @@
+use core::pin::Pin;
+use core::task::{Context, Poll};
+
 use conquer_once::spin::OnceCell;
 use crossbeam_queue::ArrayQueue;
+use futures_util::stream::Stream;
 
 use crate::println;
 
@@ -15,6 +19,18 @@ impl ScancodeStream {
             .try_init_once(|| ArrayQueue::new(100))
             .expect("ScancodeStream::new should only be called once");
         ScancodeStream { _private: () }
+    }
+}
+
+impl Stream for ScancodeStream {
+    type Item = u8;
+
+    fn poll_next(self: Pin<&mut Self>, cx: &mut Context) -> Poll<Option<u8>> {
+        let queue = SCANCODE_QUEUE.try_get().expect("not initialized");
+        match queue.pop() {
+            Ok(scancode) => Poll::Ready(Some(scancode)),
+            Err(crossbeam_queue::PopError) => Poll::Pending,
+        }
     }
 }
 
