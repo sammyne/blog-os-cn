@@ -58,3 +58,8 @@ pub fn init_heap(
 
     Ok(())
 }
+
+/// Align the given address `addr` upwards to alignment `align`.
+fn align_up(addr: usize, align: usize) -> usize {
+    (addr + align - 1) & !(align - 1)
+}
