@@ -4,10 +4,12 @@ use core::task::{Context, Poll};
 use conquer_once::spin::OnceCell;
 use crossbeam_queue::ArrayQueue;
 use futures_util::stream::Stream;
+use futures_util::task::AtomicWaker;
 
 use crate::println;
 
 static SCANCODE_QUEUE: OnceCell<ArrayQueue<u8>> = OnceCell::uninit();
+static WAKER: AtomicWaker = AtomicWaker::new();
 
 pub struct ScancodeStream {
     _private: (),
