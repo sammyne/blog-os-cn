@@ -1,5 +1,5 @@
 use alloc::collections::VecDeque;
-use core::task::{RawWaker, Waker};
+use core::task::{RawWaker, RawWakerVTable, Waker};
 
 use super::Task;
 
@@ -20,7 +20,13 @@ impl SimpleExecutor {
 }
 
 fn dummy_raw_waker() -> RawWaker {
-    todo!();
+    fn no_op(_: *const ()) {}
+    fn clone(_: *const ()) -> RawWaker {
+        dummy_raw_waker()
+    }
+
+    let vtable = &RawWakerVTable::new(clone, no_op, no_op, no_op);
+    RawWaker::new(0 as *const (), vtable)
 }
 
 fn dummy_waker() -> Waker {
