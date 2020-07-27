@@ -1,5 +1,6 @@
 use alloc::alloc::{GlobalAlloc, Layout};
-use core::ptr;
+use core::mem;
+use core::ptr::{self, NonNull};
 
 use super::Locked;
 
@@ -89,4 +90,12 @@ unsafe impl GlobalAlloc for Locked<FixedSizeBlockAllocator> {
             }
         }
     }
+}
+
+/// Choose an appropriate block size for the given layout.
+///
+/// Returns an index into the `BLOCK_SIZES` array.
+fn list_index(layout: &Layout) -> Option<usize> {
+    let required_block_size = layout.size().max(layout.align());
+    BLOCK_SIZES.iter().position(|&s| s >= required_block_size)
 }

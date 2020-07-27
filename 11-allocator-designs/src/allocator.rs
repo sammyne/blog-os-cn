@@ -9,12 +9,15 @@ pub mod bump;
 pub mod fixed_size_block;
 pub mod linked_list;
 
+use fixed_size_block::FixedSizeBlockAllocator;
+
 pub const HEAP_START: usize = 0x_4444_4444_0000;
 pub const HEAP_SIZE: usize = 100 * 1024; // 100 KiB
 
 #[global_allocator]
-static ALLOCATOR: Locked<linked_list::LinkedListAllocator> =
-    Locked::new(linked_list::LinkedListAllocator::new());
+//static ALLOCATOR: Locked<linked_list::LinkedListAllocator> =
+//    Locked::new(linked_list::LinkedListAllocator::new());
+static ALLOCATOR: Locked<FixedSizeBlockAllocator> = Locked::new(FixedSizeBlockAllocator::new());
 
 /// A wrapper around spin::Mutex to permit trait implementations.
 pub struct Locked<A> {
