@@ -6,6 +6,7 @@ use x86_64::{
 };
 
 pub mod bump;
+pub mod linked_list;
 
 use bump::BumpAllocator;
 
