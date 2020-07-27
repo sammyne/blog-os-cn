@@ -10,6 +10,11 @@ pub struct Executor {
     waker_cache: BTreeMap<TaskId, Waker>,
 }
 
+struct TaskWaker {
+    task_id: TaskId,
+    task_queue: Arc<ArrayQueue<TaskId>>,
+}
+
 impl Executor {
     pub fn new() -> Self {
         Executor {
@@ -53,5 +58,11 @@ impl Executor {
                 Poll::Pending => {}
             }
         }
+    }
+}
+
+impl TaskWaker {
+    fn wake_task(&self) {
+        self.task_queue.push(self.task_id).expect("task_queue full");
     }
 }
