@@ -2,14 +2,13 @@
 #![cfg_attr(test, no_main)]
 #![feature(alloc_error_handler)]
 #![feature(custom_test_frameworks)]
-#![feature(const_fn)]
+#![feature(const_mut_refs)]
 #![feature(const_in_array_repeat_expressions)]
 #![test_runner(crate::test_runner)]
 #![reexport_test_harness_main = "test_main"]
 #![feature(abi_x86_interrupt)]
 
 extern crate alloc;
-extern crate rlibc;
 
 use core::panic::PanicInfo;
 
@@ -72,13 +71,13 @@ fn alloc_error_handler(layout: alloc::alloc::Layout) -> ! {
 }
 
 /// Entry point for `cargo xtest`
-#[cfg(test)]
-#[no_mangle]
-pub extern "C" fn _start() -> ! {
-    init();
-    test_main();
-    hlt_loop();
-}
+//#[cfg(test)]
+//#[no_mangle]
+//pub extern "C" fn _start() -> ! {
+//    init();
+//    test_main();
+//    hlt_loop();
+//}
 
 #[cfg(test)]
 #[panic_handler]

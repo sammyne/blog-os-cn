@@ -3,7 +3,7 @@
 ## 运行
 
 ```bash
-cargo xrun
+cargo run
 ```
 
 ## 参考文献

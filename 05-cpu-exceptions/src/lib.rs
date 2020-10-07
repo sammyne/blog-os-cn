@@ -7,8 +7,6 @@
 
 use core::panic::PanicInfo;
 
-extern crate rlibc;
-
 pub mod interrupts;
 pub mod serial;
 pub mod vga_buffer;

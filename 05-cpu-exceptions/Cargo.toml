@@ -7,11 +7,10 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bootloader  = "0.9.8"
-rlibc       = "1.0.0"
+bootloader  = "0.9.11"
 spin        = "0.5.2"
-uart_16550  = "0.2.0"
-x86_64      = "0.11.0"
+uart_16550  = "0.2.10"
+x86_64      = "0.12.2"
 volatile    = "0.2.6"
 
 [dependencies.lazy_static]

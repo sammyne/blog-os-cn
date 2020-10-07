@@ -8,7 +8,6 @@
 #![feature(abi_x86_interrupt)]
 
 extern crate alloc;
-extern crate rlibc;
 
 use core::panic::PanicInfo;
 
@@ -72,13 +71,13 @@ fn alloc_error_handler(layout: alloc::alloc::Layout) -> ! {
 }
 
 /// Entry point for `cargo xtest`
-#[cfg(test)]
-#[no_mangle]
-pub extern "C" fn _start() -> ! {
-    init();
-    test_main();
-    hlt_loop();
-}
+//#[cfg(test)]
+//#[no_mangle]
+//pub extern "C" fn _start() -> ! {
+//    init();
+//    test_main();
+//    hlt_loop();
+//}
 
 #[cfg(test)]
 #[panic_handler]
